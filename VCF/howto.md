@@ -35,6 +35,6 @@ Finally use the picard tool to perform liftover
 ```
 for i in {1..22}
 do
-  java -jar picard.jar LiftoverVcf I=<Input.vcf> O=<Output.vcf> CHAIN=<Chain R=<Reference.fa>
+  java -jar picard.jar LiftoverVcf I=<Input.vcf> O=<Output.vcf> CHAIN=<Chain> R=<Reference.fa> REJECT=<Output.reject.vcf.gz>
 done
 ```
