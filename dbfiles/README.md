@@ -1,0 +1,5 @@
+Scripts and tools for lifting over db file/prediXcan weights file. Bear in mind that doing lifting over models between builds may not be equivalent to building models in each build separately. You should get most of the same snps, but between builds snps change position and asome get deleted, split, or categorized differently. So it could be that in one build a snp within the cis window for a model, but in another build it falls out of the cis window. It could be that one build has removed a snp contained by another, or what was previously considered an indel has been recategorized as several single point mutations. For best results you should really build models in each build that you're considering, but for the most part it is adequate to liftover the snps in one build or another.
+
+## SNP ids
+Performing liftover on models is only truly necessary when the models have ids in cpos format. If all files are in rsid format, this process is redundant as the models can map to the correct snp based on the rsid. In cpos however, these snps will have different ids depending on the build and cannot map to each other between builds.
+
