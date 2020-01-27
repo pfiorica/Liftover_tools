@@ -1,0 +1,21 @@
+#!/bin/bash
+
+/usr/bin/sqlite3 lifted_ALL_imputed_10_peer_3_pcs_v2.db <<"EOF"
+.separator "\t"
+DROP TABLE weights;
+
+CREATE TABLE `weights` (
+  `gene` TEXT,
+  `rsid` TEXT,
+  `varID` TEXT,
+  `ref_allele` TEXT,
+  `eff_allele` TEXT,
+  `weight` REAL
+);
+
+.import /home/rschubert1/edit_PredictDB_MESA/lifted_ALL_imputed_10_peer_3_pcs_v2_weights.txt weights
+
+CREATE INDEX weights_rsid ON weights (rsid);
+CREATE INDEX weights_gene ON weights (gene);
+CREATE INDEX weights_rsid_gene ON weights (rsid, gene);
+EOF
