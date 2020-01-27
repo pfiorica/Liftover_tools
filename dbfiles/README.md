@@ -23,3 +23,21 @@ Then liftover
  liftOver prelift_ALL.txt /home/rschubert1/data/liftover/hg19ToHg38.over.chain.gz lifted_hg38_ALL.txt unmapped_ALL.txt
 ```
 
+Next generate the cpos ids and reformat the varids, also dropping alt and random chromosomes
+
+```
+awk '{split($4,a,"_");gsub("chr","",$1); print $0 FS "hg38:" $1 ":" $2 FS $1 "_" $2 "_" a[3] "_" a[4] "_b38"}' lifted_hg38_ALL.txt |grep -v -F alt | grep -v -F rand > lifted_hg38_ALL_with_Varid.txt
+```
+
+Then use the `liftover_weights.R` script to make a new weights table with updated ids
+
+```
+Rscript liftover_weights.R --lifted lifted_hg38_ALL_with_Varid.txt --weights ALL_imputed_10_peer_3_pcs_v2_weights.txt --out lifted_ALL_imputed_10_peer_3_pcs_v2_weights.txt
+```
+
+now finally you can run `ALL_sql_eof` to update you table
+
+```
+cp ALL_imputed_10_peer_3_pcs_v2.db lifted_ALL_imputed_10_peer_3_pcs_v2.db
+bash ALL_sql_eof
+```
