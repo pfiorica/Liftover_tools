@@ -57,9 +57,9 @@ then
   exit 1
 fi
 
-if [ ! -e  ]
+if [ ! -e ${ChainFile} ]
 then
-  echo "Warning: One or more bfiles does not exist. Exiting."
+  echo "Warning: Chain file not found or DNE. Exiting."
   exit 1
 fi
 
